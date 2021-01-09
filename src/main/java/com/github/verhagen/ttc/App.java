@@ -70,6 +70,7 @@ public class App {
 	private void writeAsFile(String fileName, String text) {
 		File file = targetPath.resolve(fileName).toFile();
 		if (file.exists()) {
+			logger.error("File '" + file + "' already exists! Keeping existing file.");
 			System.exit(1);
 		}
 		try (FileWriter writer = new FileWriter(file)) {
