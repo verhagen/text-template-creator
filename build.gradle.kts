@@ -29,7 +29,7 @@ dependencies {
     // Use JUnit Jupiter Engine for testing.
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
-    testRuntimeOnly("ch.qos.logback:logback-classic:1.2.3")
+    runtimeOnly("ch.qos.logback:logback-classic:1.2.3")
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
   //  api("org.apache.commons:commons-math3:3.6.1")
