@@ -34,12 +34,15 @@ public class Logbook {
 		List<String> logbook = new ArrayList<>();
 		int month = date.getMonthValue();
 		int year = date.getYear();
-		LocalDate day = null;
-		for (int dayOfMonth = 1; dayOfMonth <= 31; dayOfMonth++) {
-			day = LocalDate.of(year, month, dayOfMonth);
-			logbook.add("## " + day.format(formatDaySection) + calendar.extraInfo(month, dayOfMonth));
+		LocalDate firstDayOfMonth = LocalDate.of(year, month, 1);
+		LocalDate dayOfMonth = null;
+		for (int dayIndex = 0; dayIndex <= 30; dayIndex++) {
+			dayOfMonth = firstDayOfMonth.plusDays(dayIndex);
+			if (dayOfMonth.getMonthValue() == month) {
+				logbook.add("## " + dayOfMonth.format(formatDaySection) + calendar.extraInfo(month, dayOfMonth.getDayOfMonth()));
+			}
 		}
-		logbook.add("# Logbook " + day.format(formatLogbookTitle));
+		logbook.add("# Logbook " + dayOfMonth.format(formatLogbookTitle));
 		StringBuilder bldr = new StringBuilder();
 		for (int index = logbook.size() - 1; index >= 0; index--) {
 			if (bldr.length() > 0) {
