@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 /**
  * App time-sheet <year> 
  * App logbook <year.month> 
+ * App logbook-meals <year.month> 
  *
  */
 public class App {
@@ -46,6 +47,10 @@ public class App {
 			logger.info(createLogbook(args[1]));
 			writeAsFile(new Logbook().creatFileName(args[1]), createLogbook(args[1]));
 		}
+		else  if ("logbook-meals".equalsIgnoreCase(textType)) {
+			logger.info(createLogbookMeals(args[1]));
+			writeAsFile(new LogbookMealsPerMonth().creatFileName(args[1]), createLogbookMeals(args[1]));
+		}
 		else {
 			logger.warn("Unknown text type '" + textType + "'");
 		}
@@ -65,14 +70,21 @@ public class App {
 		Logbook logbook = new Logbook();
 		return logbook.create(yearMonthStr);
 	}
+	
+	public String createLogbookMeals(String yearMonthStr) {
+		LogbookMealsPerMonth logbook = new LogbookMealsPerMonth();
+		return logbook.create(yearMonthStr);
+	}
 
 
 	private void writeAsFile(String fileName, String text) {
 		File file = targetPath.resolve(fileName).toFile();
 		if (file.exists()) {
 			logger.error("File '" + file + "' already exists! Keeping existing file.");
+			logger.error("Location " + targetPath.toAbsolutePath());
 			System.exit(1);
 		}
+		logger.info("Creating file '" + targetPath.toAbsolutePath() + "'");
 		try (FileWriter writer = new FileWriter(file)) {
 			writer.append(text);
 		}

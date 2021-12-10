@@ -28,7 +28,7 @@ public class CalendarEntries {
 	public String extraInfo(int month, int dayOfMonth) {
 		String key = (month < 10 ? "0" + month : month) + "." + (dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth);
 		if (entries.containsKey(key)) {
-			return " (" + entries.get(key)  + ")";
+			return entries.get(key);
 		}
 		return "";
 	}
